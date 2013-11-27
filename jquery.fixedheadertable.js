@@ -11,7 +11,7 @@
  * jQuery authoring guidelines
  *
  * Launch  : October 2009
- * Version : 1.3
+ * Version : 1.3.1
  * Released: May 9th, 2011
  *
  *
@@ -35,7 +35,8 @@
       autoShow:        true, // hide table after its created
       footer:          false, // show footer
       cloneHeadToFoot: false, // clone head and use as footer
-      autoResize:      false, // resize table if its parent wrapper changes size
+      autoResize:      false, // resize table if its parent wrapper changes size,
+      autoCreateThead: false,
       create:          null // callback after plugin completes
     };
 
@@ -49,6 +50,10 @@
         // iterate through all the DOM elements we are attaching the plugin to
         return this.each(function () {
           var $self = $(this); // reference the jQuery version of the current DOM element
+          
+          if(settings.autoCreateThead){
+            helpers._autoCreateThead($self);
+          }
 
           if (helpers._isTable($self)) {
             methods.setup.apply(this, Array.prototype.slice.call(arguments, 1));
@@ -314,6 +319,31 @@
         }
 
         return false;
+
+      },
+      
+      /*
+       * return boolean
+       * True if a thead and tbody exist.
+       */
+      _autoCreateThead: function($obj) {
+        var $self = $obj,
+            $newThead = $("<thead></thead>"),
+            $topRow,
+            hasThead = $self.find('thead').length > 0;
+        
+        if (hasThead){
+          return;
+        }                
+        
+        $topRow = $obj
+          .children("tbody")
+          .children("tr")
+          .first();
+        
+        $topRow.remove();
+        
+        $newThead.append($topRow).prependTo($self);
 
       },
 

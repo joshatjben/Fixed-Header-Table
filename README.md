@@ -1,4 +1,4 @@
-## Version 1.3
+## Version 1.3.1
  - jquery.fixedheadertable.js
  
 ## Methods:
@@ -14,6 +14,7 @@
 * fixedColumns - Number - Default: 0
 * footer - Boolean - Default: false
 * cloneHeadToFoot - Boolean - Default: false
+* autoCreateThead - Boolean - Default: false
 * autoShow - Boolean - Default: true
 * altClass - String - Default: none
 * themeClass - String - Default: none
