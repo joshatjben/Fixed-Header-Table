@@ -17,7 +17,8 @@
  *
  * all CSS sizing (width,height) is done in pixels (px)
  */
-
+/* jshint indent: 2, expr: true*/
+/* global jQuery, navigator */
 (function ($) {
 
   $.fn.fixedHeaderTable = function (method) {
@@ -79,9 +80,9 @@
         settings.themeClassName = settings.themeClass;
 
         if (settings.width.search('%') > -1) {
-            widthMinusScrollbar = $self.parent().width() - settings.scrollbarOffset;
+          widthMinusScrollbar = $self.parent().width() - settings.scrollbarOffset;
         } else {
-            widthMinusScrollbar = settings.width - settings.scrollbarOffset;
+          widthMinusScrollbar = settings.width - settings.scrollbarOffset;
         }
 
         $self.css({
@@ -96,11 +97,11 @@
 
         $wrapper = $self.closest('.fht-table-wrapper');
 
-        if(settings.fixedColumn == true && settings.fixedColumns <= 0) {
+        if(settings.fixedColumn === true && settings.fixedColumns <= 0) {
           settings.fixedColumns = 1;
         }
 
-        if (settings.fixedColumns > 0 && $wrapper.find('.fht-fixed-column').length == 0) {
+        if (settings.fixedColumns > 0 && $wrapper.find('.fht-fixed-column').length === 0) {
           $self.wrap('<div class="fht-fixed-body"></div>');
 
           $('<div class="fht-fixed-column"></div>').prependTo($wrapper);
@@ -147,7 +148,7 @@
          * Check for footer
          * Setup footer if present
          */
-        if (settings.footer == true) {
+        if (settings.footer === true) {
           helpers._setupTableFooter($self, self, tableProps);
 
           if (!$tfoot.length) {
@@ -332,7 +333,7 @@
 
             $fixedColumns.find('.fht-tbody table')
               .css({
-                  'margin-top': -$self.scrollTop()
+                'margin-top': -$self.scrollTop()
               });
           }
 
@@ -372,13 +373,13 @@
         if (settings.includePadding) {
           $obj.each(function() {
             $(this).css({
-              'width': width == undefined ? $(this).width() + tableProps.border : width + tableProps.border
+              'width': width === undefined ? $(this).width() + tableProps.border : width + tableProps.border
             });
           });
         } else {
           $obj.each(function() {
             $(this).css({
-              'width': width == undefined ? $(this).parent().width() + tableProps.border : width + tableProps.border
+              'width': width === undefined ? $(this).parent().width() + tableProps.border : width + tableProps.border
             });
           });
         }
@@ -442,7 +443,7 @@
           });
 
         $firstTdChildren.each(function(index) {
-          if (index % settings.fixedColumns == 0) {
+          if (index % settings.fixedColumns === 0) {
             $newRow = $('<tr></tr>').appendTo($tbody.find('tbody'));
 
             if (settings.altClass && $(this).parent().hasClass(settings.altClass)) {
@@ -464,7 +465,7 @@
         // bind mousewheel events
         var maxTop = $fixedColumn.find('.fht-tbody .fht-table').height() - $fixedColumn.find('.fht-tbody').height();
         $fixedColumn.find('.fht-table').bind('mousewheel', function(event, delta, deltaX, deltaY) {
-          if (deltaY == 0) {
+          if (deltaY === 0) {
             return;
           }
           var top = parseInt($(this).css('marginTop'), 10) + (deltaY > 0 ? 120 : -120);
@@ -486,7 +487,7 @@
         });
 
         // setup clone footer with fixed column
-        if (settings.footer == true || settings.cloneHeadToFoot == true) {
+        if (settings.footer === true || settings.cloneHeadToFoot === true) {
           var $firstTdFootChild = $fixedBody.find('.fht-tfoot tr > *:lt(' + settings.fixedColumns + ')'),
               footwidth;
 
@@ -522,27 +523,30 @@
         $divFoot.find('table.fht-table').addClass(settings.originalTable.attr('class'));
 
         switch (true) {
-          case !$tfoot.length && settings.cloneHeadToFoot == true && settings.footer == true:
+        
+        case !$tfoot.length && settings.cloneHeadToFoot === true && settings.footer === true:
 
-            var $divHead = $wrapper.find('div.fht-thead');
+          var $divHead = $wrapper.find('div.fht-thead');
 
-            $divFoot.empty();
-            $divHead.find('table')
-              .clone()
-              .appendTo($divFoot);
+          $divFoot.empty();
+          $divHead.find('table')
+            .clone()
+            .appendTo($divFoot);
 
-            break;
-          case $tfoot.length && settings.cloneHeadToFoot == false && settings.footer == true:
+          break;
+        
+        case $tfoot.length && settings.cloneHeadToFoot === false && settings.footer === true:
 
-            $divFoot.find('table')
-              .append($tfoot)
-              .css({
-                'margin-top': -tableProps.border
-              });
+          $divFoot.find('table')
+            .append($tfoot)
+            .css({
+              'margin-top': -tableProps.border
+            });
 
-            helpers._setupClone($divFoot, tableProps.tfoot);
+          helpers._setupClone($divFoot, tableProps.tfoot);
 
-            break;
+          break;
+        
         }
 
       },
@@ -554,14 +558,14 @@
        */
       _getTableProps: function($obj) {
         var tableProp = {
-              thead: {},
-              tbody: {},
-              tfoot: {},
-              border: 0
-            },
+            thead: {},
+            tbody: {},
+            tfoot: {},
+            border: 0
+          },
             borderCollapse = 1;
 
-        if (settings.borderCollapse == true) {
+        if (settings.borderCollapse === true) {
           borderCollapse = 2;
         }
 
@@ -610,7 +614,7 @@
             var padding = Math.max((($(this).innerWidth() - $(this).width()) / 2), settings.scrollbarOffset);
             $(this).css({
                 'padding-right': padding + 'px'
-            });
+              });
           }
         });
       },
